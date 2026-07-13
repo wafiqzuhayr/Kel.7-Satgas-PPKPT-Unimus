@@ -9,8 +9,7 @@
   },
   "routes": [
     {
-      "src": "/build/(.*)",
-      "dest": "/public/build/$1"
+      "handle": "filesystem"
     },
     {
       "src": "/(.*)",
@@ -20,7 +19,7 @@
   "outputDirectory": "public",
   "env": {
     "APP_ENV": "production",
-    "APP_DEBUG": "true",
+    "APP_DEBUG": "false",
     "LOG_CHANNEL": "stderr"
   }
 }
