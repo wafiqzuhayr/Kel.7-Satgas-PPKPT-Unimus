@@ -10,6 +10,11 @@ function set_env_var($key, $value) {
 
 // Vercel serverless read-only filesystem fix
 set_env_var('VIEW_COMPILED_PATH', '/tmp');
+set_env_var('APP_SERVICES_CACHE', '/tmp/services.php');
+set_env_var('APP_PACKAGES_CACHE', '/tmp/packages.php');
+set_env_var('APP_CONFIG_CACHE', '/tmp/config.php');
+set_env_var('APP_ROUTES_CACHE', '/tmp/routes.php');
+set_env_var('APP_EVENTS_CACHE', '/tmp/events.php');
 set_env_var('CACHE_STORE', 'array');
 set_env_var('SESSION_DRIVER', 'cookie');
 set_env_var('QUEUE_CONNECTION', 'sync');
