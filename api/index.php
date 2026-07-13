@@ -19,8 +19,8 @@ set_env_var('CACHE_STORE', 'array');
 set_env_var('SESSION_DRIVER', 'cookie');
 set_env_var('QUEUE_CONNECTION', 'sync');
 set_env_var('LOG_CHANNEL', 'stderr');
-set_env_var('APP_DEBUG', 'true');
-set_env_var('APP_ENV', 'local');
+set_env_var('APP_DEBUG', 'false');
+set_env_var('APP_ENV', 'production');
 
 // Inject APP_KEY if not set in Vercel
 if (!getenv('APP_KEY')) {
