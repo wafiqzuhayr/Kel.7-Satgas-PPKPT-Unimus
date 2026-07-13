@@ -1,12 +1,15 @@
 {
   "version": 2,
-  "framework": null,
-  "functions": {
-    "api/index.php": {
-      "runtime": "vercel-php@0.7.3",
-      "includeFiles": "{app,bootstrap,config,database,public,resources,routes,storage,vendor}/**"
+  "builds": [
+    {
+      "src": "api/index.php",
+      "use": "vercel-php@0.7.3"
+    },
+    {
+      "src": "public/**",
+      "use": "@vercel/static"
     }
-  },
+  ],
   "routes": [
     {
       "src": "/(build|assets|css|js|images|fonts)/(.*)",
