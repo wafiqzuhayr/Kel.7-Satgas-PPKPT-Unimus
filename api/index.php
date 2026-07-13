@@ -44,8 +44,9 @@ $app = require_once __DIR__.'/../bootstrap/app.php';
 
 if (isset($_GET['debug_migrate'])) {
     try {
-        \Illuminate\Support\Facades\Artisan::call('migrate:fresh', ['--force' => true, '--seed' => true]);
-        echo "Migration output: " . \Illuminate\Support\Facades\Artisan::output();
+        $kernel = $app->make(\Illuminate\Contracts\Console\Kernel::class);
+        $kernel->call('migrate:fresh', ['--force' => true, '--seed' => true]);
+        echo "Migration output: " . $kernel->output();
         exit;
     } catch (\Exception $e) {
         echo "Error: " . $e->getMessage();
@@ -55,7 +56,8 @@ if (isset($_GET['debug_migrate'])) {
 
 if ($needsMigration) {
     try {
-        \Illuminate\Support\Facades\Artisan::call('migrate:fresh', ['--force' => true, '--seed' => true]);
+        $kernel = $app->make(\Illuminate\Contracts\Console\Kernel::class);
+        $kernel->call('migrate:fresh', ['--force' => true, '--seed' => true]);
     } catch (\Exception $e) {
         error_log("Migration failed: " . $e->getMessage());
     }
