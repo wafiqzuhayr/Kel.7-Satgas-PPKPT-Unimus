@@ -19,7 +19,7 @@ set_env_var('CACHE_STORE', 'array');
 set_env_var('SESSION_DRIVER', 'cookie');
 set_env_var('QUEUE_CONNECTION', 'sync');
 set_env_var('LOG_CHANNEL', 'stderr');
-set_env_var('APP_DEBUG', 'false');
+set_env_var('APP_DEBUG', 'true');
 set_env_var('APP_ENV', 'production');
 
 // Inject APP_KEY if not set in Vercel
@@ -41,6 +41,17 @@ if (!getenv('DB_CONNECTION') || getenv('DB_HOST') === '127.0.0.1') {
 
 require __DIR__.'/../vendor/autoload.php';
 $app = require_once __DIR__.'/../bootstrap/app.php';
+
+if (isset($_GET['debug_migrate'])) {
+    try {
+        \Illuminate\Support\Facades\Artisan::call('migrate:fresh', ['--force' => true, '--seed' => true]);
+        echo "Migration output: " . \Illuminate\Support\Facades\Artisan::output();
+        exit;
+    } catch (\Exception $e) {
+        echo "Error: " . $e->getMessage();
+        exit;
+    }
+}
 
 if ($needsMigration) {
     try {
