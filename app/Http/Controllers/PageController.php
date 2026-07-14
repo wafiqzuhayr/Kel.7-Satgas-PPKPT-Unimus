@@ -30,6 +30,18 @@ class PageController extends Controller
         return view('pages.dokumen_resmi');
     }
 
+    public function dokumenViewer(Request $request)
+    {
+        $file = $request->query('file');
+        $title = $request->query('title', 'Dokumen');
+        
+        if (!$file) {
+            return redirect()->route('dokumen_resmi');
+        }
+        
+        return view('pages.dokumen_viewer', compact('file', 'title'));
+    }
+
     /**
      * Tampilkan halaman SOP / Alur Pelaporan.
      */

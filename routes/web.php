@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [PageController::class, 'beranda'])->name('beranda');
 Route::get('/tentang-satgas', [PageController::class, 'tentangSatgas'])->name('tentang_satgas');
 Route::get('/dokumen-resmi', [PageController::class, 'dokumenResmi'])->name('dokumen_resmi');
+Route::get('/dokumen-viewer', [PageController::class, 'dokumenViewer'])->name('dokumen_viewer');
 Route::get('/sop-pelaporan', [PageController::class, 'sopPelaporan'])->name('sop_pelaporan');
 Route::get('/layanan-bantuan', [PageController::class, 'layananBantuan'])->name('layanan_bantuan');
 
