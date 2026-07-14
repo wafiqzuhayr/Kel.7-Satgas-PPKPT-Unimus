@@ -23,7 +23,7 @@ class LaporanController extends Controller
             'tempat_kejadian' => 'required|string',
             'kronologi' => 'required|string',
             'pihak_terlibat' => 'nullable|string',
-            'bukti_file' => 'nullable|file|mimes:png,jpg,jpeg,pdf,doc,docx|max:10240',
+            'bukti_file' => 'nullable|file|mimes:jpg,jpeg,png,mp4|max:10240',
             'bersedia_dihubungi' => 'required|boolean',
         ]);
 

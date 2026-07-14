@@ -198,10 +198,10 @@
                 <div class="md:col-span-2">
                     <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Bukti Pendukung (Opsional)</label>
                     <div class="relative w-full rounded-xl border-2 border-dashed border-slate-300 bg-slate-50 px-6 py-10 text-center hover:bg-slate-100 transition-colors">
-                        <input type="file" name="bukti_file" class="absolute inset-0 z-10 w-full h-full opacity-0 cursor-pointer" accept=".jpg,.jpeg,.png,.pdf,.doc,.docx">
+                        <input type="file" name="bukti_file" class="absolute inset-0 z-10 w-full h-full opacity-0 cursor-pointer" accept=".jpg,.jpeg,.png,.mp4">
                         <svg class="mx-auto h-10 w-10 text-slate-400 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" /></svg>
                         <p class="text-sm font-bold text-[#0f295a]">Klik atau seret file ke sini</p>
-                        <p class="text-[11px] text-slate-500 font-medium mt-1">Mendukung file JPG, PNG, PDF, DOCX (Maks. 10MB)</p>
+                        <p class="text-[11px] text-slate-500 font-medium mt-1">Mendukung file JPG, PNG, MP4 (Maks. 10MB)</p>
                     </div>
                 </div>
             </div>
