@@ -128,7 +128,7 @@ class PageController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
-            'phone' => 'nullable|string|max:20',
+            'phone' => 'nullable|numeric|digits_between:11,13',
             'identity_number' => 'nullable|string|max:50',
             'department' => 'nullable|string|max:100',
             'password' => 'nullable|string|min:8|confirmed',

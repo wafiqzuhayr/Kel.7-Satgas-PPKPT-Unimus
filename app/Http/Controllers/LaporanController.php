@@ -12,7 +12,7 @@ class LaporanController extends Controller
     {
         $request->validate([
             'nama' => 'required|string',
-            'no_hp' => 'required|string',
+            'no_hp' => 'required|numeric|digits_between:11,13',
             'nik_nim' => 'required|string',
             'status_pelapor' => 'required|in:Dosen,Tenaga Kependidikan,Mahasiswa,Lainnya',
             'unit_kerja_prodi' => 'required|string',

@@ -71,7 +71,7 @@
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wide">Nomor Telepon / WA</label>
-                        <input type="text" name="phone" value="{{ old('phone', Auth::user()->phone) }}" placeholder="Contoh: 081234567890" class="w-full rounded-xl border-slate-200 bg-slate-50 px-4 py-2.5 text-sm focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-200 transition-all outline-none">
+                        <input type="number" name="phone" value="{{ old('phone', Auth::user()->phone) }}" placeholder="Contoh: 081234567890" minlength="11" maxlength="13" class="w-full rounded-xl border-slate-200 bg-slate-50 px-4 py-2.5 text-sm focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-200 transition-all outline-none" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
                         @error('phone') <span class="text-xs text-red-500 mt-1">{{ $message }}</span> @enderror
                     </div>
                     <div>
