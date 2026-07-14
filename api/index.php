@@ -33,6 +33,7 @@ if (getenv('POSTGRES_URL_NON_POOLING') || getenv('POSTGRES_URL')) {
     // Vercel Postgres Auto-Configuration via DB_URL
     set_env_var('DB_CONNECTION', 'pgsql');
     set_env_var('DB_URL', getenv('POSTGRES_URL_NON_POOLING') ?: getenv('POSTGRES_URL'));
+    set_env_var('DB_PORT', '5432');
 } elseif (!getenv('DB_CONNECTION') || getenv('DB_HOST') === '127.0.0.1') {
     set_env_var('DB_CONNECTION', 'sqlite');
     $dbPath = '/tmp/database.sqlite';
