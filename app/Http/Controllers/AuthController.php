@@ -59,10 +59,11 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z\s]+$/'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ], [
+            'name.regex' => 'Nama lengkap hanya boleh berisi huruf dan spasi.',
             'email.unique' => 'Alamat email ini sudah terdaftar di sistem kami.',
             'password.min' => 'Password minimal harus terdiri dari 8 karakter.',
             'password.confirmed' => 'Konfirmasi password tidak cocok.',
