@@ -29,15 +29,10 @@ if (!getenv('APP_KEY')) {
 
 $needsMigration = false;
 // Prevent DB Connection Error 500 by defaulting to SQLite in /tmp if local config is used
-if (getenv('POSTGRES_URL')) {
-    // Vercel Postgres Auto-Configuration
-    $db = parse_url(getenv('POSTGRES_URL'));
+if (getenv('POSTGRES_URL_NON_POOLING') || getenv('POSTGRES_URL')) {
+    // Vercel Postgres Auto-Configuration via DB_URL
     set_env_var('DB_CONNECTION', 'pgsql');
-    set_env_var('DB_HOST', $db['host']);
-    set_env_var('DB_PORT', $db['port'] ?? 5432);
-    set_env_var('DB_DATABASE', ltrim($db['path'], '/'));
-    set_env_var('DB_USERNAME', $db['user']);
-    set_env_var('DB_PASSWORD', $db['pass']);
+    set_env_var('DB_URL', getenv('POSTGRES_URL_NON_POOLING') ?: getenv('POSTGRES_URL'));
 } elseif (!getenv('DB_CONNECTION') || getenv('DB_HOST') === '127.0.0.1') {
     set_env_var('DB_CONNECTION', 'sqlite');
     $dbPath = '/tmp/database.sqlite';
