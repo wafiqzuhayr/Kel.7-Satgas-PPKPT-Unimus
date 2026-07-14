@@ -25,6 +25,9 @@ class LaporanController extends Controller
             'pihak_terlibat' => 'nullable|string',
             'bukti_file' => 'nullable|file|mimes:jpg,jpeg,png,mp4|max:10240',
             'bersedia_dihubungi' => 'required|boolean',
+        ], [
+            'bukti_file.mimes' => 'Mohon maaf, file bukti yang diunggah harus berupa format JPG, PNG, atau MP4.',
+            'bukti_file.max' => 'Ukuran file bukti tidak boleh lebih dari 10 MB.',
         ]);
 
         $laporanId = 'RPT-' . date('Ym') . '-' . strtoupper(substr(uniqid(), -4));
