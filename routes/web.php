@@ -66,3 +66,13 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 // Berita Kegiatan Publik
 Route::get('/berita', [App\Http\Controllers\BeritaController::class, 'index'])->name('berita.index');
 Route::get('/berita/{slug}', [App\Http\Controllers\BeritaController::class, 'show'])->name('berita.show');
+
+// Route sementara untuk menjalankan migrasi database di Vercel
+Route::get('/run-migrations-production-force', function () {
+    try {
+        \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+        return 'Migrasi Database Berhasil Dijalankan di Vercel! Silakan kembali ke website.';
+    } catch (\Exception $e) {
+        return 'Error: ' . $e->getMessage();
+    }
+});
