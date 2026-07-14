@@ -102,6 +102,20 @@ class PageController extends Controller
     }
 
     /**
+     * Memperbarui Pengaturan Notifikasi.
+     */
+    public function updateSettings(Request $request)
+    {
+        $user = \Illuminate\Support\Facades\Auth::user();
+        
+        $user->notif_email = $request->has('notif_email');
+        $user->notif_wa = $request->has('notif_wa');
+        $user->save();
+
+        return back()->with('success', 'Pengaturan notifikasi berhasil disimpan!');
+    }
+
+    /**
      * Portal Terproteksi: Halaman Ubah Password.
      */
     public function editPassword()

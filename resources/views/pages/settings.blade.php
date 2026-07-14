@@ -16,7 +16,14 @@
         </a>
     </div>
 
-    <div class="space-y-6">
+    @if(session('success'))
+        <div class="bg-emerald-50 border border-emerald-100 p-4 rounded-2xl mb-6 shadow-sm text-center">
+            <p class="text-sm font-bold text-emerald-700">{{ session('success') }}</p>
+        </div>
+    @endif
+
+    <form method="POST" action="{{ route('settings.update') }}" class="space-y-6">
+        @csrf
 
         <!-- Section: Notifikasi -->
         <div class="bg-white border border-slate-100 rounded-[2rem] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
@@ -38,7 +45,7 @@
                         <p class="text-[11px] text-slate-500 mt-0.5">Terima pembaruan status laporan via email.</p>
                     </div>
                     <label class="relative inline-flex items-center cursor-pointer">
-                        <input type="checkbox" value="" class="sr-only peer" checked>
+                        <input type="checkbox" name="notif_email" value="1" class="sr-only peer" {{ Auth::user()->notif_email ? 'checked' : '' }}>
                         <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
                     </label>
                 </div>
@@ -50,7 +57,7 @@
                         <p class="text-[11px] text-slate-500 mt-0.5">Peringatan darurat langsung ke WA Anda.</p>
                     </div>
                     <label class="relative inline-flex items-center cursor-pointer">
-                        <input type="checkbox" value="" class="sr-only peer">
+                        <input type="checkbox" name="notif_wa" value="1" class="sr-only peer" {{ Auth::user()->notif_wa ? 'checked' : '' }}>
                         <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
                     </label>
                 </div>
@@ -95,12 +102,13 @@
             </div>
         </div>
 
-        <!-- Tombol Simpan (Visual only for now) -->
+        <!-- Tombol Simpan -->
         <div class="flex justify-end pt-4">
-            <button type="button" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-700 to-indigo-600 hover:from-blue-800 hover:to-indigo-700 px-8 py-3.5 text-xs font-bold text-white shadow-md hover:shadow-lg transition-all" onclick="alert('Pengaturan berhasil disimpan!')">
+            <button type="submit" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-700 to-indigo-600 hover:from-blue-800 hover:to-indigo-700 px-8 py-3.5 text-xs font-bold text-white shadow-md hover:shadow-lg transition-all">
                 Simpan Perubahan
             </button>
         </div>
+    </form>
 
         <!-- Section: Keluar / Logout -->
         <div class="bg-red-50/50 border border-red-100 rounded-[2rem] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] mt-12">

@@ -65,6 +65,23 @@ class LaporanController extends Controller
             'status' => 'Menunggu',
         ]);
 
+        $user = Auth::user();
+        if ($user) {
+            if ($user->notif_email) {
+                try {
+                    \Illuminate\Support\Facades\Mail::raw("Halo {$user->name},\n\nLaporan pengaduan Anda dengan ID: {$laporanId} telah berhasil dikirim ke sistem Satgas PPKPT UNIMUS. Tim kami akan segera menindaklanjutinya.\n\nTerima kasih,\nSatgas PPKPT UNIMUS", function ($message) use ($user) {
+                        $message->to($user->email)->subject('Notifikasi Laporan Satgas PPKPT UNIMUS');
+                    });
+                } catch (\Exception $e) {
+                    \Illuminate\Support\Facades\Log::error('Gagal kirim email notif: ' . $e->getMessage());
+                }
+            }
+
+            if ($user->notif_wa && $user->phone) {
+                \Illuminate\Support\Facades\Log::info("MENSIMULASIKAN PENGIRIMAN WHATSAPP ke nomor {$user->phone}: Halo {$user->name}, laporan Anda dengan ID {$laporanId} telah diterima oleh Satgas PPKPT UNIMUS.");
+            }
+        }
+
         return redirect()->route('buat_pengaduan')->with('success', 'Laporan Anda telah berhasil dikirim. Harap simpan ID Laporan berikut untuk melacak perkembangan kasus: ' . $laporanId);
     }
 

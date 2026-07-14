@@ -23,6 +23,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/edit', [PageController::class, 'editProfile'])->name('profile.edit');
     Route::post('/profile/update', [PageController::class, 'updateProfile'])->name('profile.update');
     Route::get('/settings', [PageController::class, 'settings'])->name('settings');
+    Route::post('/settings', [PageController::class, 'updateSettings'])->name('settings.update');
     Route::get('/settings/password', [PageController::class, 'editPassword'])->name('password.edit');
     Route::post('/settings/password', [PageController::class, 'updatePassword'])->name('password.update');
     
