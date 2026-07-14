@@ -147,14 +147,18 @@ class PageController extends Controller
 
         if ($request->hasFile('avatar')) {
             if ($request->file('avatar')->isValid()) {
-                // Hapus avatar lama jika ada
-                if ($user->avatar && \Illuminate\Support\Facades\Storage::disk('public')->exists($user->avatar)) {
-                    \Illuminate\Support\Facades\Storage::disk('public')->delete($user->avatar);
+                try {
+                    // Hapus avatar lama jika ada
+                    if ($user->avatar && \Illuminate\Support\Facades\Storage::disk('public')->exists($user->avatar)) {
+                        \Illuminate\Support\Facades\Storage::disk('public')->delete($user->avatar);
+                    }
+                    
+                    // Simpan avatar baru
+                    $path = $request->file('avatar')->store('avatars', 'public');
+                    $user->avatar = $path;
+                } catch (\Exception $e) {
+                    return redirect()->back()->withErrors(['avatar' => 'Gagal mengunggah foto. Sistem saat ini berjalan pada mode Serverless (Read-Only).'])->withInput();
                 }
-                
-                // Simpan avatar baru
-                $path = $request->file('avatar')->store('avatars', 'public');
-                $user->avatar = $path;
             } else {
                 return redirect()->back()->withErrors(['avatar' => 'File foto profil rusak atau melebihi batas ukuran maksimal server.'])->withInput();
             }

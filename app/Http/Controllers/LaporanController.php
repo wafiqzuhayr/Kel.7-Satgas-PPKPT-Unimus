@@ -31,10 +31,15 @@ class LaporanController extends Controller
 
         $buktiPath = null;
         if ($request->hasFile('bukti_file')) {
-            $file = $request->file('bukti_file');
-            $fileName = $laporanId . '_' . time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('uploads/bukti'), $fileName);
-            $buktiPath = 'uploads/bukti/' . $fileName;
+            try {
+                $file = $request->file('bukti_file');
+                $fileName = $laporanId . '_' . time() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('uploads/bukti'), $fileName);
+                $buktiPath = 'uploads/bukti/' . $fileName;
+            } catch (\Exception $e) {
+                // Pada Vercel (Read-Only filesystem), abaikan file bukti agar laporan tetap bisa disubmit
+                $buktiPath = null;
+            }
         }
 
         Laporan::create([

@@ -34,7 +34,11 @@ class AdminBeritaController extends Controller
         $data['is_published'] = $request->has('is_published');
 
         if ($request->hasFile('gambar')) {
-            $data['gambar'] = $request->file('gambar')->store('berita', 'public');
+            try {
+                $data['gambar'] = $request->file('gambar')->store('berita', 'public');
+            } catch (\Exception $e) {
+                // Ignore for Vercel
+            }
         }
 
         BeritaKegiatan::create($data);
@@ -65,10 +69,14 @@ class AdminBeritaController extends Controller
         $data['is_published'] = $request->has('is_published');
 
         if ($request->hasFile('gambar')) {
-            if ($berita->gambar) {
-                Storage::disk('public')->delete($berita->gambar);
+            try {
+                if ($berita->gambar) {
+                    Storage::disk('public')->delete($berita->gambar);
+                }
+                $data['gambar'] = $request->file('gambar')->store('berita', 'public');
+            } catch (\Exception $e) {
+                // Ignore for Vercel
             }
-            $data['gambar'] = $request->file('gambar')->store('berita', 'public');
         }
 
         $berita->update($data);
@@ -80,7 +88,11 @@ class AdminBeritaController extends Controller
     {
         $berita = BeritaKegiatan::findOrFail($id);
         if ($berita->gambar) {
-            Storage::disk('public')->delete($berita->gambar);
+            try {
+                Storage::disk('public')->delete($berita->gambar);
+            } catch (\Exception $e) {
+                // Ignore for Vercel
+            }
         }
         $berita->delete();
 
