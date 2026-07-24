@@ -23,13 +23,24 @@
         </a>
     </div>
 
-    <!-- Tombol Buka Excel -->
-    <a href="{{ route('admin.laporan.export', ['tipe' => request('tipe')]) }}" target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-md shadow-emerald-600/20 hover:-translate-y-0.5 transition-all cursor-pointer">
-        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
-        </svg>
-        <span>Buka Excel</span>
-    </a>
+    <!-- Tombol Aksi Excel -->
+    <div class="flex items-center gap-2">
+        <!-- Tombol Buka Excel -->
+        <a href="{{ route('admin.laporan.export', ['tipe' => request('tipe')]) }}" target="_blank" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-md shadow-emerald-600/20 hover:-translate-y-0.5 transition-all cursor-pointer" title="Download File Excel / CSV">
+            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+            </svg>
+            <span>Buka Excel</span>
+        </a>
+
+        <!-- Tombol Connect Excel Online -->
+        <button type="button" onclick="document.getElementById('excel-online-modal').classList.remove('hidden')" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-600/20 hover:-translate-y-0.5 transition-all cursor-pointer">
+            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+            </svg>
+            <span>Excel Online API</span>
+        </button>
+    </div>
 </div>
 <div class="bg-white/80 backdrop-blur-xl border border-white/40 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden">
     <div class="overflow-x-auto">
@@ -87,6 +98,61 @@
     
     <div class="px-6 py-4 border-t border-slate-100">
         {{ $laporans->links() }}
+    </div>
+</div>
+
+<!-- Modal Petunjuk Excel Online API -->
+<div id="excel-online-modal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-xl w-full p-6 md:p-8 shadow-2xl border border-slate-100 relative">
+        <button type="button" onclick="document.getElementById('excel-online-modal').classList.add('hidden')" class="absolute top-6 right-6 text-slate-400 hover:text-slate-600 p-2 rounded-full hover:bg-slate-100 transition-colors">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+        </button>
+
+        <div class="flex items-center gap-3 mb-4">
+            <div class="h-10 w-10 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xl">
+                📊
+            </div>
+            <div>
+                <h3 class="text-lg font-black text-[#0f295a]">Integrasi Excel Online API</h3>
+                <p class="text-xs text-slate-500 font-medium">Sinkronisasi data laporan otomatis ke Microsoft Excel Online & Google Sheets</p>
+            </div>
+        </div>
+
+        <div class="space-y-4 my-6 text-xs text-slate-600 font-medium">
+            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200/80">
+                <label class="block font-bold text-slate-700 mb-1.5 uppercase tracking-wider text-[10px]">URL API Live Feed (Copy URL Ini):</label>
+                <div class="flex items-center gap-2">
+                    <input type="text" readonly id="excel-api-url" value="{{ route('api.excel_feed', ['tipe' => request('tipe')]) }}" class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-mono text-slate-800 focus:outline-none select-all">
+                    <button type="button" onclick="navigator.clipboard.writeText(document.getElementById('excel-api-url').value); alert('URL API Excel Online berhasil disalin!');" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-3.5 py-2 rounded-xl shrink-0 transition-colors">
+                        Salin URL
+                    </button>
+                </div>
+            </div>
+
+            <div class="space-y-2">
+                <h4 class="font-bold text-slate-800 text-xs uppercase tracking-wider">Cara Pasang di Excel Online / Office 365:</h4>
+                <ol class="list-decimal pl-4 space-y-1.5 leading-relaxed text-slate-600">
+                    <li>Buka <strong>Microsoft Excel Online / Office 365</strong>.</li>
+                    <li>Pilih menu <strong>Data &rarr; From Web (Dari Web)</strong>.</li>
+                    <li>Paste URL API di atas, lalu klik <strong>OK / Load</strong>.</li>
+                    <li>Excel Online akan otomatis membaca dan memperbarui data laporan secara real-time.</li>
+                </ol>
+            </div>
+
+            <div class="space-y-2 pt-2 border-t border-slate-100">
+                <h4 class="font-bold text-slate-800 text-xs uppercase tracking-wider">Cara Pasang di Google Sheets:</h4>
+                <p class="leading-relaxed">Ketikkan rumus berikut pada sel A1 di Google Sheets:</p>
+                <code class="block bg-slate-900 text-emerald-400 p-3 rounded-xl font-mono text-[11px] overflow-x-auto select-all">
+                    =IMPORTDATA("{{ route('api.excel_feed', ['tipe' => request('tipe')]) }}")
+                </code>
+            </div>
+        </div>
+
+        <div class="text-right pt-2">
+            <button type="button" onclick="document.getElementById('excel-online-modal').classList.add('hidden')" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-5 py-2.5 rounded-xl text-xs transition-colors">
+                Tutup
+            </button>
+        </div>
     </div>
 </div>
 @endsection

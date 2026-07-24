@@ -69,6 +69,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 Route::get('/berita', [App\Http\Controllers\BeritaController::class, 'index'])->name('berita.index');
 Route::get('/berita/{slug}', [App\Http\Controllers\BeritaController::class, 'show'])->name('berita.show');
 
+// Live API Feed for Excel Online & Google Sheets
+Route::get('/api/excel-feed', [AdminController::class, 'apiExcelFeed'])->name('api.excel_feed');
+
 // Route sementara untuk menjalankan migrasi database di Vercel
 Route::get('/run-migrations-production-force', function () {
     try {

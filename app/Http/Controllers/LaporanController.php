@@ -46,7 +46,7 @@ class LaporanController extends Controller
             }
         }
 
-        Laporan::create([
+        $laporan = Laporan::create([
             'id' => $laporanId,
             'user_id' => Auth::id(),
             'tipe_pengaduan' => $request->input('tipe_pengaduan', 'Satgas PPKPT'),
@@ -67,6 +67,8 @@ class LaporanController extends Controller
             'status' => 'Menunggu',
         ]);
 
+        $this->triggerExcelWebhook($laporan, 'created');
+
         $user = Auth::user();
         if ($user) {
             if ($user->notif_email) {
@@ -85,6 +87,38 @@ class LaporanController extends Controller
         }
 
         return redirect()->route('buat_pengaduan')->with('success', 'Laporan Anda telah berhasil dikirim. Harap simpan ID Laporan berikut untuk melacak perkembangan kasus: ' . $laporanId);
+    }
+
+    protected function triggerExcelWebhook(Laporan $laporan, $event = 'created')
+    {
+        $webhookUrl = env('EXCEL_WEBHOOK_URL') ?: env('EXCEL_ONLINE_WEBHOOK_URL');
+        if ($webhookUrl) {
+            try {
+                \Illuminate\Support\Facades\Http::timeout(5)->post($webhookUrl, [
+                    'event' => 'laporan.' . $event,
+                    'id' => $laporan->id,
+                    'tipe_pengaduan' => $laporan->tipe_pengaduan ?? 'Satgas PPKPT',
+                    'nama' => $laporan->nama,
+                    'no_hp' => $laporan->no_hp,
+                    'nik_nim' => $laporan->nik_nim,
+                    'status_pelapor' => $laporan->status_pelapor,
+                    'unit_kerja_prodi' => $laporan->unit_kerja_prodi,
+                    'kategori_aduan' => $laporan->kategori_aduan,
+                    'alasan_pengaduan' => $laporan->alasan_pengaduan,
+                    'kebutuhan_penyintas' => $laporan->kebutuhan_penyintas,
+                    'waktu_kejadian' => $laporan->waktu_kejadian,
+                    'tempat_kejadian' => $laporan->tempat_kejadian,
+                    'kronologi' => $laporan->kronologi,
+                    'pihak_terlibat' => $laporan->pihak_terlibat ?? '-',
+                    'bersedia_dihubungi' => $laporan->bersedia_dihubungi ? 'Ya' : 'Tidak',
+                    'status' => $laporan->status,
+                    'catatan_satgas' => $laporan->catatan_satgas ?? '-',
+                    'created_at' => $laporan->created_at ? $laporan->created_at->format('Y-m-d H:i:s') : date('Y-m-d H:i:s'),
+                ]);
+            } catch (\Throwable $e) {
+                \Illuminate\Support\Facades\Log::error('Excel Webhook Error: ' . $e->getMessage());
+            }
+        }
     }
 
     public function search(Request $request)
