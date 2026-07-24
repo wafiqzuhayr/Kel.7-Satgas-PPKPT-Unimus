@@ -59,13 +59,11 @@ if (isset($_GET['debug_migrate'])) {
     }
 }
 
-if ($needsMigration) {
-    try {
-        $kernel = $app->make(\Illuminate\Contracts\Console\Kernel::class);
-        $kernel->call('migrate:fresh', ['--force' => true, '--seed' => true]);
-    } catch (\Exception $e) {
-        error_log("Migration failed: " . $e->getMessage());
-    }
+try {
+    $kernel = $app->make(\Illuminate\Contracts\Console\Kernel::class);
+    $kernel->call('migrate', ['--force' => true]);
+} catch (\Throwable $e) {
+    error_log("Auto-migrate failed: " . $e->getMessage());
 }
 
 $app->handleRequest(\Illuminate\Http\Request::capture());

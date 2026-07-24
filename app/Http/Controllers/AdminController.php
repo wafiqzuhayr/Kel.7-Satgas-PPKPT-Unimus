@@ -7,6 +7,19 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
+    private function hasTipeColumn()
+    {
+        try {
+            if (!\Illuminate\Support\Facades\Schema::hasColumn('laporans', 'tipe_pengaduan')) {
+                \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+                return \Illuminate\Support\Facades\Schema::hasColumn('laporans', 'tipe_pengaduan');
+            }
+            return true;
+        } catch (\Throwable $e) {
+            return false;
+        }
+    }
+
     public function dashboard()
     {
         $totalLaporan = Laporan::count();
@@ -14,10 +27,12 @@ class AdminController extends Controller
         $diproses = Laporan::where('status', 'Diproses')->count();
         $selesai = Laporan::where('status', 'Selesai')->count();
 
-        $countPPKPT = Laporan::where(function($q) {
+        $hasTipe = $this->hasTipeColumn();
+
+        $countPPKPT = $hasTipe ? Laporan::where(function($q) {
             $q->where('tipe_pengaduan', 'Satgas PPKPT')->orWhereNull('tipe_pengaduan');
-        })->count();
-        $countSafety = Laporan::where('tipe_pengaduan', 'Student Safety')->count();
+        })->count() : $totalLaporan;
+        $countSafety = $hasTipe ? Laporan::where('tipe_pengaduan', 'Student Safety')->count() : 0;
 
         $laporanTerbaru = Laporan::orderBy('created_at', 'desc')->take(5)->get();
 
@@ -28,22 +43,23 @@ class AdminController extends Controller
     {
         $tipe = $request->query('tipe');
         $query = Laporan::query();
+        $hasTipe = $this->hasTipeColumn();
 
-        if ($tipe === 'satgas_ppkpt') {
+        if ($hasTipe && $tipe === 'satgas_ppkpt') {
             $query->where(function($q) {
                 $q->where('tipe_pengaduan', 'Satgas PPKPT')->orWhereNull('tipe_pengaduan');
             });
-        } elseif ($tipe === 'student_safety') {
+        } elseif ($hasTipe && $tipe === 'student_safety') {
             $query->where('tipe_pengaduan', 'Student Safety');
         }
 
         $laporans = $query->orderBy('created_at', 'desc')->paginate(10)->withQueryString();
 
         $countAll = Laporan::count();
-        $countPPKPT = Laporan::where(function($q) {
+        $countPPKPT = $hasTipe ? Laporan::where(function($q) {
             $q->where('tipe_pengaduan', 'Satgas PPKPT')->orWhereNull('tipe_pengaduan');
-        })->count();
-        $countSafety = Laporan::where('tipe_pengaduan', 'Student Safety')->count();
+        })->count() : $countAll;
+        $countSafety = $hasTipe ? Laporan::where('tipe_pengaduan', 'Student Safety')->count() : 0;
 
         return view('admin.laporan.index', compact('laporans', 'tipe', 'countAll', 'countPPKPT', 'countSafety'));
     }
@@ -52,13 +68,14 @@ class AdminController extends Controller
     {
         $tipe = $request->query('tipe');
         $query = Laporan::query();
+        $hasTipe = $this->hasTipeColumn();
 
-        if ($tipe === 'satgas_ppkpt') {
+        if ($hasTipe && $tipe === 'satgas_ppkpt') {
             $query->where(function($q) {
                 $q->where('tipe_pengaduan', 'Satgas PPKPT')->orWhereNull('tipe_pengaduan');
             });
             $fileName = 'Data_Laporan_Satgas_PPKPT_' . date('Ymd_His') . '.csv';
-        } elseif ($tipe === 'student_safety') {
+        } elseif ($hasTipe && $tipe === 'student_safety') {
             $query->where('tipe_pengaduan', 'Student Safety');
             $fileName = 'Data_Laporan_Student_Safety_' . date('Ymd_His') . '.csv';
         } else {
