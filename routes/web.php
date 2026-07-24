@@ -71,7 +71,7 @@ Route::get('/berita', [App\Http\Controllers\BeritaController::class, 'index'])->
 Route::get('/berita/{slug}', [App\Http\Controllers\BeritaController::class, 'show'])->name('berita.show');
 
 // Live API Feed for Excel Online & Google Sheets
-Route::get('/api/excel-feed', [AdminController::class, 'apiExcelFeed'])->name('api.excel_feed');
+Route::get('/feed/excel', [AdminController::class, 'apiExcelFeed'])->name('api.excel_feed');
 
 // Route sementara untuk menjalankan migrasi database di Vercel
 Route::get('/run-migrations-production-force', function () {
