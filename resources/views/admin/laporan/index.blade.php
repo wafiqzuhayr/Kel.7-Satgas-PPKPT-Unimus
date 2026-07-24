@@ -25,7 +25,7 @@
 
     <!-- Tombol Aksi Excel -->
     <div class="flex items-center gap-2">
-        <a href="{{ route('admin.laporan.excel_online', ['tipe' => request('tipe')]) }}" target="_blank" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-md shadow-emerald-600/20 hover:-translate-y-0.5 transition-all cursor-pointer" title="Buka Spreadsheet Excel Online">
+        <a href="{{ env('EXCEL_ONLINE_URL') ?? '#' }}" @if(!env('EXCEL_ONLINE_URL')) onclick="alert('PENTING: Anda belum memasukkan link Excel Online Anda. Silakan buka file .env dan tambahkan baris EXCEL_ONLINE_URL=https://link-excel-anda.com'); return false;" @else target="_blank" @endif class="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-md shadow-emerald-600/20 hover:-translate-y-0.5 transition-all cursor-pointer" title="Buka Spreadsheet Excel Online">
             <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
             </svg>
