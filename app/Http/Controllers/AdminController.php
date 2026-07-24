@@ -149,6 +149,24 @@ class AdminController extends Controller
         return response()->stream($callback, 200, $headers);
     }
 
+    public function excelOnline(Request $request)
+    {
+        $tipe = $request->query('tipe');
+        $query = Laporan::query();
+        $hasTipe = $this->hasTipeColumn();
+
+        if ($hasTipe && $tipe === 'satgas_ppkpt') {
+            $query->where(function($q) {
+                $q->where('tipe_pengaduan', 'Satgas PPKPT')->orWhereNull('tipe_pengaduan');
+            });
+        } elseif ($hasTipe && $tipe === 'student_safety') {
+            $query->where('tipe_pengaduan', 'Student Safety');
+        }
+
+        $laporans = $query->orderBy('created_at', 'desc')->get();
+        return view('admin.laporan.excel_online', compact('laporans', 'tipe'));
+    }
+
     public function showLaporan($id)
     {
         $laporan = Laporan::findOrFail($id);
@@ -207,6 +225,7 @@ class AdminController extends Controller
 
         $headers = [
             'Content-Type' => 'text/csv; charset=UTF-8',
+            'Content-Disposition' => 'attachment; filename="Data_Laporan_Live_API.csv"',
             'Access-Control-Allow-Origin' => '*',
             'Cache-Control' => 'no-cache, no-store, must-revalidate',
             'Pragma' => 'no-cache',
