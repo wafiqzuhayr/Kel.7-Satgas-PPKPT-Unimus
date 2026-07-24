@@ -11,12 +11,13 @@ class LaporanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'tipe_pengaduan' => 'nullable|string',
             'nama' => 'required|string',
             'no_hp' => 'required|numeric|digits_between:11,13',
             'nik_nim' => 'required|string',
             'status_pelapor' => 'required|in:Dosen,Tenaga Kependidikan,Mahasiswa,Lainnya',
             'unit_kerja_prodi' => 'required|string',
-            'kategori_aduan' => 'required|in:Kekerasan Fisik,Kekerasan Psikis,Perundungan,Kekerasan Seksual,Diskiriminasi dan Intimidasi,Kebijakan yang Mengandung Kekerasan,Lainnya',
+            'kategori_aduan' => 'required|string',
             'alasan_pengaduan' => 'required|string',
             'kebutuhan_penyintas' => 'required|string',
             'waktu_kejadian' => 'required|string',
@@ -48,6 +49,7 @@ class LaporanController extends Controller
         Laporan::create([
             'id' => $laporanId,
             'user_id' => Auth::id(),
+            'tipe_pengaduan' => $request->input('tipe_pengaduan', 'Satgas PPKPT'),
             'nama' => $request->nama,
             'no_hp' => $request->no_hp,
             'nik_nim' => $request->nik_nim,

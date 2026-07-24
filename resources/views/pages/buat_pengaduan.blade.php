@@ -1,16 +1,30 @@
 @extends('layouts.app')
 
-@section('title', 'Buat Pengaduan | Satgas PPKPT UNIMUS')
+@php
+    $isStudentSafety = (isset($tipe) && $tipe === 'student_safety') || request('tipe') === 'student_safety';
+    $namaTipe = $isStudentSafety ? 'Student Safety' : 'Satgas PPKPT';
+@endphp
+
+@section('title', 'Buat Pengaduan ' . $namaTipe . ' | UNIMUS')
 
 @section('content')
 <div class="max-w-4xl mx-auto px-4 sm:px-6 mt-8 mb-16">
     <div class="mb-10 text-center">
-        <span class="inline-flex items-center gap-1.5 rounded-full border border-blue-500/20 bg-blue-50 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-blue-700">
-            <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-            Formulir Resmi
+        <span class="inline-flex items-center gap-1.5 rounded-full border {{ $isStudentSafety ? 'border-indigo-500/20 bg-indigo-50 text-indigo-700' : 'border-blue-500/20 bg-blue-50 text-blue-700' }} px-4 py-1.5 text-[11px] font-bold tracking-wide">
+            @if($isStudentSafety)
+                <svg class="h-3.5 w-3.5 text-indigo-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+            @else
+                <svg class="h-3.5 w-3.5 text-blue-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+            @endif
+            Data Anda akan terjaga, keamanan Anda tanggung jawab kami
         </span>
-        <h1 class="mt-4 text-3xl font-black text-[#0f295a] tracking-tight">Formulir Pengaduan <span class="text-amber-500">Satgas PPKPT</span></h1>
-        <p class="mt-3 text-slate-500 font-medium max-w-2xl mx-auto text-sm leading-relaxed">Harap isi formulir di bawah ini dengan lengkap dan jujur. Identitas dan laporan Anda akan dijaga kerahasiaannya sesuai prosedur hukum yang berlaku.</p>
+        <h1 class="mt-4 text-3xl font-black text-[#0f295a] tracking-tight">
+            Formulir Pengaduan 
+            <span class="{{ $isStudentSafety ? 'text-indigo-600' : 'text-amber-500' }}">{{ $namaTipe }}</span>
+        </h1>
+        <p class="mt-3 text-slate-500 font-medium max-w-2xl mx-auto text-sm leading-relaxed">
+            Harap isi formulir pengaduan <strong>{{ $namaTipe }}</strong> di bawah ini dengan lengkap dan jujur. Identitas dan laporan Anda akan dijaga kerahasiaannya secara aman.
+        </p>
     </div>
 
     @if(session('success'))
@@ -45,6 +59,7 @@
 
     <form action="{{ route('buat_pengaduan.store') }}" method="POST" enctype="multipart/form-data" class="space-y-8">
         @csrf
+        <input type="hidden" name="tipe_pengaduan" value="{{ $namaTipe }}">
 
         <!-- Bagian 1: Identitas Pelapor -->
         <div class="bg-white rounded-[2rem] border border-slate-100 p-6 md:p-10 shadow-sm">
@@ -102,17 +117,21 @@
             <div class="space-y-6">
                 <!-- Kategori Aduan -->
                 <div>
-                    <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-3">Kategori Aduan <span class="text-red-500">*</span></label>
-                    <select name="kategori_aduan" required class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-800 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-colors">
-                        <option value="" disabled selected>-- Pilih Kategori Utama --</option>
-                        <option value="Kekerasan Fisik" {{ old('kategori_aduan') == 'Kekerasan Fisik' ? 'selected' : '' }}>Kekerasan Fisik</option>
-                        <option value="Kekerasan Psikis" {{ old('kategori_aduan') == 'Kekerasan Psikis' ? 'selected' : '' }}>Kekerasan Psikis</option>
-                        <option value="Perundungan" {{ old('kategori_aduan') == 'Perundungan' ? 'selected' : '' }}>Perundungan</option>
-                        <option value="Kekerasan Seksual" {{ old('kategori_aduan') == 'Kekerasan Seksual' ? 'selected' : '' }}>Kekerasan Seksual</option>
-                        <option value="Diskiriminasi dan Intimidasi" {{ old('kategori_aduan') == 'Diskiriminasi dan Intimidasi' ? 'selected' : '' }}>Diskriminasi dan Intimidasi</option>
-                        <option value="Kebijakan yang Mengandung Kekerasan" {{ old('kategori_aduan') == 'Kebijakan yang Mengandung Kekerasan' ? 'selected' : '' }}>Kebijakan yang Mengandung Kekerasan</option>
-                        <option value="Lainnya" {{ old('kategori_aduan') == 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
-                    </select>
+                    <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-3">Kategori / Masalah Aduan <span class="text-red-500">*</span></label>
+                    @if($isStudentSafety)
+                        <input type="text" name="kategori_aduan" value="{{ old('kategori_aduan') }}" required placeholder="Tambah kejadian atau masalah di tempat praktik" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-800 focus:border-indigo-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-colors">
+                    @else
+                        <select name="kategori_aduan" required class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-800 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-colors">
+                            <option value="" disabled selected>-- Pilih Kategori Utama --</option>
+                            <option value="Kekerasan Fisik" {{ old('kategori_aduan') == 'Kekerasan Fisik' ? 'selected' : '' }}>Kekerasan Fisik</option>
+                            <option value="Kekerasan Psikis" {{ old('kategori_aduan') == 'Kekerasan Psikis' ? 'selected' : '' }}>Kekerasan Psikis</option>
+                            <option value="Perundungan" {{ old('kategori_aduan') == 'Perundungan' ? 'selected' : '' }}>Perundungan</option>
+                            <option value="Kekerasan Seksual" {{ old('kategori_aduan') == 'Kekerasan Seksual' ? 'selected' : '' }}>Kekerasan Seksual</option>
+                            <option value="Diskiriminasi dan Intimidasi" {{ old('kategori_aduan') == 'Diskiriminasi dan Intimidasi' ? 'selected' : '' }}>Diskriminasi dan Intimidasi</option>
+                            <option value="Kebijakan yang Mengandung Kekerasan" {{ old('kategori_aduan') == 'Kebijakan yang Mengandung Kekerasan' ? 'selected' : '' }}>Kebijakan yang Mengandung Kekerasan</option>
+                            <option value="Lainnya" {{ old('kategori_aduan') == 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
+                        </select>
+                    @endif
                 </div>
 
                 <!-- Alasan Pengaduan -->
@@ -139,6 +158,7 @@
                         <option value="Konseling Psikologis" {{ old('kebutuhan_penyintas') == 'Konseling Psikologis' ? 'selected' : '' }}>Konseling Psikologis</option>
                         <option value="Bantuan Hukum" {{ old('kebutuhan_penyintas') == 'Bantuan Hukum' ? 'selected' : '' }}>Bantuan Hukum</option>
                         <option value="Bantuan Medis" {{ old('kebutuhan_penyintas') == 'Bantuan Medis' ? 'selected' : '' }}>Bantuan Medis</option>
+                        <option value="Membutuhkan Pendampingan/ Bantuan" {{ old('kebutuhan_penyintas') == 'Membutuhkan Pendampingan/ Bantuan' ? 'selected' : '' }}>Membutuhkan Pendampingan/ Bantuan</option>
                         <option value="Tidak Membutuhkan Pendampingan/ Bantuan" {{ old('kebutuhan_penyintas') == 'Tidak Membutuhkan Pendampingan/ Bantuan' ? 'selected' : '' }}>Tidak Membutuhkan Pendampingan/ Bantuan</option>
                         <option value="Koordinasi dengan Satgas PPKPT dan/atau Perguruan Tinggi" {{ old('kebutuhan_penyintas') == 'Koordinasi dengan Satgas PPKPT dan/atau Perguruan Tinggi' ? 'selected' : '' }}>Koordinasi dengan Satgas PPKPT dan/atau Perguruan Tinggi</option>
                         <option value="Yang lainnya" {{ old('kebutuhan_penyintas') == 'Yang lainnya' ? 'selected' : '' }}>Yang lainnya</option>
@@ -196,7 +216,7 @@
 
                 <!-- Lampiran Bukti -->
                 <div class="md:col-span-2">
-                    <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Bukti Pendukung (Opsional)</label>
+                    <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Bukti Pendukung (Opsional / Tidak Wajib)</label>
                     <div class="relative w-full rounded-xl border-2 border-dashed border-slate-300 bg-slate-50 px-6 py-10 text-center hover:bg-slate-100 transition-colors">
                         <input type="file" name="bukti_file" class="absolute inset-0 z-10 w-full h-full opacity-0 cursor-pointer" accept=".jpg,.jpeg,.png,.mp4" onchange="const f = this.files[0]; if(f) { const e = f.name.split('.').pop().toLowerCase(); if(!['jpg','jpeg','png','mp4'].includes(e)) { alert('Mohon maaf, file harus berupa JPG, PNG, atau MP4 sesuai dengan ketentuan!'); this.value = ''; return; } if(f.size > 10485760) { alert('Mohon maaf, ukuran file terlalu besar! Maksimal 10 MB.'); this.value = ''; return; } }">
                         <svg class="mx-auto h-10 w-10 text-slate-400 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" /></svg>

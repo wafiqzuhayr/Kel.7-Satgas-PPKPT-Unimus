@@ -1,9 +1,36 @@
 @extends('layouts.admin')
 
 @section('title', 'Data Laporan')
-@section('page_title', 'Daftar Semua Laporan')
+@section('page_title', isset($tipe) ? ($tipe === 'student_safety' ? 'Data Laporan Student Safety' : ($tipe === 'satgas_ppkpt' ? 'Data Laporan Satgas PPKPT' : 'Daftar Semua Laporan')) : 'Daftar Semua Laporan')
 
 @section('content')
+<!-- Filter Tabs & Export Excel Action -->
+<div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+    <div class="flex flex-wrap items-center gap-3">
+        <a href="{{ route('admin.laporan.index') }}" class="inline-flex items-center gap-2 px-4.5 py-2.5 rounded-2xl text-xs font-bold transition-all shadow-sm {{ empty($tipe) ? 'bg-[#0f295a] text-white shadow-blue-900/20' : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50' }}">
+            <span>📋 Semua Laporan</span>
+            <span class="px-2 py-0.5 rounded-full text-[10px] {{ empty($tipe) ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-700' }}">{{ $countAll ?? 0 }}</span>
+        </a>
+        
+        <a href="{{ route('admin.laporan.index', ['tipe' => 'satgas_ppkpt']) }}" class="inline-flex items-center gap-2 px-4.5 py-2.5 rounded-2xl text-xs font-bold transition-all shadow-sm {{ ($tipe ?? '') === 'satgas_ppkpt' ? 'bg-blue-600 text-white shadow-blue-600/20' : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50' }}">
+            <span>🛡️ Satgas PPKPT</span>
+            <span class="px-2 py-0.5 rounded-full text-[10px] {{ ($tipe ?? '') === 'satgas_ppkpt' ? 'bg-white/20 text-white' : 'bg-blue-50 text-blue-700' }}">{{ $countPPKPT ?? 0 }}</span>
+        </a>
+
+        <a href="{{ route('admin.laporan.index', ['tipe' => 'student_safety']) }}" class="inline-flex items-center gap-2 px-4.5 py-2.5 rounded-2xl text-xs font-bold transition-all shadow-sm {{ ($tipe ?? '') === 'student_safety' ? 'bg-indigo-600 text-white shadow-indigo-600/20' : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50' }}">
+            <span>🦺 Student Safety</span>
+            <span class="px-2 py-0.5 rounded-full text-[10px] {{ ($tipe ?? '') === 'student_safety' ? 'bg-white/20 text-white' : 'bg-indigo-50 text-indigo-700' }}">{{ $countSafety ?? 0 }}</span>
+        </a>
+    </div>
+
+    <!-- Tombol Buka Excel -->
+    <a href="{{ route('admin.laporan.export', ['tipe' => request('tipe')]) }}" target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-md shadow-emerald-600/20 hover:-translate-y-0.5 transition-all cursor-pointer">
+        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+        </svg>
+        <span>Buka Excel</span>
+    </a>
+</div>
 <div class="bg-white/80 backdrop-blur-xl border border-white/40 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden">
     <div class="overflow-x-auto">
         <table class="w-full text-left text-sm whitespace-nowrap">
@@ -24,7 +51,12 @@
                         <span class="font-bold text-[#0f295a]">{{ $laporan->id }}</span>
                     </td>
                     <td class="px-6 py-4">{{ $laporan->created_at->format('d M Y, H:i') }}</td>
-                    <td class="px-6 py-4">{{ $laporan->kategori_aduan }}</td>
+                    <td class="px-6 py-4">
+                        <div class="font-semibold text-slate-800">{{ $laporan->kategori_aduan }}</div>
+                        <span class="inline-block mt-1 text-[9px] font-bold px-2 py-0.5 rounded-full {{ ($laporan->tipe_pengaduan ?? '') == 'Student Safety' ? 'bg-indigo-100 text-indigo-700' : 'bg-blue-100 text-blue-700' }}">
+                            {{ $laporan->tipe_pengaduan ?? 'Satgas PPKPT' }}
+                        </span>
+                    </td>
                     <td class="px-6 py-4">
                         {{ $laporan->nama }}
                     </td>

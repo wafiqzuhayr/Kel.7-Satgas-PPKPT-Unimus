@@ -61,9 +61,13 @@ class PageController extends Controller
     /**
      * Portal Terproteksi: Mulai Buat Pengaduan.
      */
-    public function buatPengaduan()
+    public function buatPengaduan(Request $request)
     {
-        return view('pages.buat_pengaduan');
+        $tipe = $request->query('tipe', 'satgas_ppkpt');
+        if (!in_array($tipe, ['satgas_ppkpt', 'student_safety'])) {
+            $tipe = 'satgas_ppkpt';
+        }
+        return view('pages.buat_pengaduan', compact('tipe'));
     }
 
     /**

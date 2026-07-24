@@ -50,6 +50,41 @@
     </div>
 </div>
 
+<!-- Breakdown Kategori Laporan -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+    <a href="{{ route('admin.laporan.index', ['tipe' => 'satgas_ppkpt']) }}" class="bg-gradient-to-r from-blue-900 to-[#0f295a] text-white p-6 rounded-3xl shadow-md hover:shadow-xl hover:-translate-y-0.5 transition-all group flex items-center justify-between">
+        <div class="flex items-center gap-4">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-white font-bold text-xl group-hover:scale-110 transition-transform">
+                🛡️
+            </div>
+            <div>
+                <h4 class="text-base font-black tracking-wide">Satgas PPKPT</h4>
+                <p class="text-xs text-blue-200 font-medium">Laporan Kekerasan, Perundungan & Seksual</p>
+            </div>
+        </div>
+        <div class="text-right">
+            <span class="text-2xl font-black text-yellow-400">{{ $countPPKPT ?? 0 }}</span>
+            <span class="block text-[10px] text-blue-200 font-bold uppercase tracking-wider">Laporan</span>
+        </div>
+    </a>
+
+    <a href="{{ route('admin.laporan.index', ['tipe' => 'student_safety']) }}" class="bg-gradient-to-r from-indigo-900 to-slate-900 text-white p-6 rounded-3xl shadow-md hover:shadow-xl hover:-translate-y-0.5 transition-all group flex items-center justify-between">
+        <div class="flex items-center gap-4">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-white font-bold text-xl group-hover:scale-110 transition-transform">
+                🦺
+            </div>
+            <div>
+                <h4 class="text-base font-black tracking-wide">Student Safety</h4>
+                <p class="text-xs text-indigo-200 font-medium">Laporan Keselamatan & Perlindungan Mahasiswa</p>
+            </div>
+        </div>
+        <div class="text-right">
+            <span class="text-2xl font-black text-amber-400">{{ $countSafety ?? 0 }}</span>
+            <span class="block text-[10px] text-indigo-200 font-bold uppercase tracking-wider">Laporan</span>
+        </div>
+    </a>
+</div>
+
 <!-- Laporan Terbaru -->
 <div class="bg-white border border-slate-100 rounded-3xl shadow-sm overflow-hidden">
     <div class="px-6 py-5 border-b border-slate-100 flex items-center justify-between">

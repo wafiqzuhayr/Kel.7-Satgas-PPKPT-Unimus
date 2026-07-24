@@ -83,9 +83,41 @@
                             Dasbor Admin
                         </a>
                     @else
-                        <a href="{{ route('buat_pengaduan') }}" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-700 to-indigo-600 hover:from-blue-800 hover:to-indigo-700 px-5.5 py-2.5 text-xs font-bold text-white shadow-md hover:shadow-lg hover:-translate-y-0.5 active:scale-95 transition-all">
-                            Buat Pengaduan
-                        </a>
+                        <!-- Dropdown Buat Pengaduan -->
+                        <div class="relative">
+                            <button type="button" id="pengaduan-dropdown-btn" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-700 to-indigo-600 hover:from-blue-800 hover:to-indigo-700 px-5.5 py-2.5 text-xs font-bold text-white shadow-md hover:shadow-lg hover:-translate-y-0.5 active:scale-95 transition-all cursor-pointer">
+                                <span>Buat Pengaduan</span>
+                                <svg id="pengaduan-dropdown-arrow" class="h-3.5 w-3.5 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+                            
+                            <!-- Menu Dropdown -->
+                            <div id="pengaduan-dropdown-menu" class="hidden absolute right-0 mt-2 w-64 rounded-2xl bg-white p-2 shadow-2xl border border-slate-100/90 z-50 animate-fade-in-down">
+                                <div class="px-3 py-2 text-[10px] font-bold text-slate-400 uppercase tracking-wider border-b border-slate-100 mb-1 flex items-center justify-between">
+                                    <span>Pilih Jenis Pengaduan</span>
+                                    <span class="h-1.5 w-1.5 rounded-full bg-blue-600"></span>
+                                </div>
+                                <a href="{{ route('buat_pengaduan', ['tipe' => 'satgas_ppkpt']) }}" class="flex items-center gap-3 px-3.5 py-3 rounded-xl hover:bg-blue-50/80 text-slate-700 hover:text-blue-700 transition-all group">
+                                    <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-blue-100 text-blue-700 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs font-bold text-slate-800 group-hover:text-blue-700">Satgas PPKPT</div>
+                                        <div class="text-[10px] text-slate-500 font-medium leading-tight">Formulir Kekerasan & Seksual</div>
+                                    </div>
+                                </a>
+                                <a href="{{ route('buat_pengaduan', ['tipe' => 'student_safety']) }}" class="flex items-center gap-3 px-3.5 py-3 rounded-xl hover:bg-indigo-50/80 text-slate-700 hover:text-indigo-700 transition-all group mt-1">
+                                    <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-indigo-100 text-indigo-700 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs font-bold text-slate-800 group-hover:text-indigo-700">Student Safety</div>
+                                        <div class="text-[10px] text-slate-500 font-medium leading-tight">Formulir Keselamatan Mahasiswa</div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
                     @endif
                     
                     <!-- Vertical Divider -->
@@ -147,9 +179,17 @@
                             Dasbor Admin
                         </a>
                     @else
-                        <a href="{{ route('buat_pengaduan') }}" class="w-full justify-center inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-700 to-indigo-600 px-5 py-3.5 text-xs font-bold text-white shadow-md transition-all uppercase tracking-wider">
-                            Buat Pengaduan
-                        </a>
+                        <div class="space-y-2">
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block text-center">Formulir Pengaduan</span>
+                            <a href="{{ route('buat_pengaduan', ['tipe' => 'satgas_ppkpt']) }}" class="w-full justify-center inline-flex items-center gap-2 rounded-xl bg-blue-700 hover:bg-blue-800 px-5 py-3 text-xs font-bold text-white shadow-sm transition-all uppercase tracking-wider">
+                                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                                <span>Pengaduan Satgas PPKPT</span>
+                            </a>
+                            <a href="{{ route('buat_pengaduan', ['tipe' => 'student_safety']) }}" class="w-full justify-center inline-flex items-center gap-2 rounded-xl bg-indigo-700 hover:bg-indigo-800 px-5 py-3 text-xs font-bold text-white shadow-sm transition-all uppercase tracking-wider">
+                                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+                                <span>Pengaduan Student Safety</span>
+                            </a>
+                        </div>
                     @endif
                     <span class="text-xs font-bold text-slate-700 text-center mb-1">Halo, {{ Auth::user()->name }}</span>
                     
@@ -238,7 +278,7 @@
         </div>
     </footer>
 
-    <!-- Mobile Drawer Trigger JS -->
+    <!-- Mobile Drawer & Dropdown JS -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const menuBtn = document.getElementById('mobile-menu-btn');
@@ -247,6 +287,29 @@
             if(menuBtn && drawer) {
                 menuBtn.addEventListener('click', function() {
                     drawer.classList.toggle('hidden');
+                });
+            }
+
+            const pengaduanBtn = document.getElementById('pengaduan-dropdown-btn');
+            const pengaduanMenu = document.getElementById('pengaduan-dropdown-menu');
+            const pengaduanArrow = document.getElementById('pengaduan-dropdown-arrow');
+
+            if (pengaduanBtn && pengaduanMenu) {
+                pengaduanBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    pengaduanMenu.classList.toggle('hidden');
+                    if (pengaduanArrow) {
+                        pengaduanArrow.classList.toggle('rotate-180');
+                    }
+                });
+
+                document.addEventListener('click', function(e) {
+                    if (!pengaduanBtn.contains(e.target) && !pengaduanMenu.contains(e.target)) {
+                        pengaduanMenu.classList.add('hidden');
+                        if (pengaduanArrow) {
+                            pengaduanArrow.classList.remove('rotate-180');
+                        }
+                    }
                 });
             }
         });

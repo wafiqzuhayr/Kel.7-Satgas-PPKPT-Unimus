@@ -51,7 +51,9 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->n
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
     Route::get('/laporan', [AdminController::class, 'indexLaporan'])->name('laporan.index');
-    Route::get('/laporan/{id}', [AdminController::class, 'showLaporan'])->name('laporan.show');
+    Route::get('/laporan/export-excel', [AdminController::class, 'exportExcel'])->name('laporan.export');
+    Route::get('/laporan/open-excel', [AdminController::class, 'exportExcel'])->name('laporan.open_excel');
+    Route::get('/laporan/{id}', [AdminController::class, 'showLaporan'])->where('id', '^(?!export-excel|open-excel).*$')->name('laporan.show');
     Route::post('/laporan/{id}/update', [AdminController::class, 'updateLaporan'])->name('laporan.update');
     
     // Berita Kegiatan CRUD

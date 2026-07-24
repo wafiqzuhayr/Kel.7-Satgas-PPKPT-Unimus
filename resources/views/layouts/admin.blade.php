@@ -27,10 +27,30 @@
                 <span class="text-sm">Dasbor</span>
             </a>
 
-            <a href="{{ route('admin.laporan.index') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors {{ request()->routeIs('admin.laporan.*') ? 'bg-white/10 text-yellow-400 font-bold' : 'text-slate-300 hover:bg-white/5 hover:text-white font-medium' }}">
-                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-                <span class="text-sm">Data Laporan</span>
-            </a>
+            <!-- Sidebar Dropdown Group: Data Laporan -->
+            <div class="space-y-1">
+                <button type="button" id="sidebar-laporan-btn" class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl transition-colors cursor-pointer {{ request()->routeIs('admin.laporan.*') ? 'bg-white/10 text-yellow-400 font-bold' : 'text-slate-300 hover:bg-white/5 hover:text-white font-medium' }}">
+                    <div class="flex items-center gap-3">
+                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                        <span class="text-sm">Data Laporan</span>
+                    </div>
+                    <svg id="sidebar-laporan-arrow" class="h-4 w-4 transition-transform duration-200 {{ request()->routeIs('admin.laporan.*') ? 'rotate-180' : '' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                
+                <div id="sidebar-laporan-menu" class="pl-8 pr-1 space-y-1 {{ request()->routeIs('admin.laporan.*') ? '' : 'hidden' }}">
+                    <a href="{{ route('admin.laporan.index', ['tipe' => 'satgas_ppkpt']) }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-xs transition-colors {{ request()->query('tipe') == 'satgas_ppkpt' ? 'bg-yellow-400/20 text-yellow-300 font-bold' : 'text-slate-300 hover:bg-white/5 hover:text-white font-medium' }}">
+                        <span>🛡️ Satgas PPKPT</span>
+                    </a>
+                    <a href="{{ route('admin.laporan.index', ['tipe' => 'student_safety']) }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-xs transition-colors {{ request()->query('tipe') == 'student_safety' ? 'bg-indigo-400/20 text-indigo-300 font-bold' : 'text-slate-300 hover:bg-white/5 hover:text-white font-medium' }}">
+                        <span>🦺 Student Safety</span>
+                    </a>
+                    <a href="{{ route('admin.laporan.index') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-xs transition-colors {{ !request()->has('tipe') && request()->routeIs('admin.laporan.index') ? 'bg-white/10 text-white font-bold' : 'text-slate-400 hover:text-white hover:bg-white/5 font-medium' }}">
+                        <span>📋 Semua Laporan</span>
+                    </a>
+                </div>
+            </div>
 
             <a href="{{ route('admin.berita.index') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors {{ request()->routeIs('admin.berita.*') ? 'bg-white/10 text-yellow-400 font-bold' : 'text-slate-300 hover:bg-white/5 hover:text-white font-medium' }}">
                 <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" /></svg>
@@ -93,5 +113,19 @@
         </div>
     </main>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const btn = document.getElementById('sidebar-laporan-btn');
+            const menu = document.getElementById('sidebar-laporan-menu');
+            const arrow = document.getElementById('sidebar-laporan-arrow');
+
+            if (btn && menu) {
+                btn.addEventListener('click', function(e) {
+                    menu.classList.toggle('hidden');
+                    if (arrow) arrow.classList.toggle('rotate-180');
+                });
+            }
+        });
+    </script>
 </body>
 </html>
