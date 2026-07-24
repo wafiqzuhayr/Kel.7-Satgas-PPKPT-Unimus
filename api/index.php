@@ -62,8 +62,11 @@ if (isset($_GET['debug_migrate'])) {
 try {
     $kernel = $app->make(\Illuminate\Contracts\Console\Kernel::class);
     $kernel->call('migrate', ['--force' => true]);
+    if (\App\Models\BeritaKegiatan::count() === 0) {
+        $kernel->call('db:seed', ['--force' => true]);
+    }
 } catch (\Throwable $e) {
-    error_log("Auto-migrate failed: " . $e->getMessage());
+    error_log("Auto-migrate/seed failed: " . $e->getMessage());
 }
 
 $app->handleRequest(\Illuminate\Http\Request::capture());

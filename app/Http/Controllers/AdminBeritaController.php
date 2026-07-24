@@ -37,7 +37,14 @@ class AdminBeritaController extends Controller
             try {
                 $data['gambar'] = $request->file('gambar')->store('berita', 'public');
             } catch (\Exception $e) {
-                // Ignore for Vercel
+                try {
+                    $file = $request->file('gambar');
+                    $mime = $file->getClientMimeType() ?: 'image/jpeg';
+                    $base64 = base64_encode(file_get_contents($file->getRealPath()));
+                    $data['gambar'] = 'data:' . $mime . ';base64,' . $base64;
+                } catch (\Exception $ex) {
+                    // Fallback
+                }
             }
         }
 
@@ -70,12 +77,19 @@ class AdminBeritaController extends Controller
 
         if ($request->hasFile('gambar')) {
             try {
-                if ($berita->gambar) {
+                if ($berita->gambar && !str_starts_with($berita->gambar, 'data:')) {
                     Storage::disk('public')->delete($berita->gambar);
                 }
                 $data['gambar'] = $request->file('gambar')->store('berita', 'public');
             } catch (\Exception $e) {
-                // Ignore for Vercel
+                try {
+                    $file = $request->file('gambar');
+                    $mime = $file->getClientMimeType() ?: 'image/jpeg';
+                    $base64 = base64_encode(file_get_contents($file->getRealPath()));
+                    $data['gambar'] = 'data:' . $mime . ';base64,' . $base64;
+                } catch (\Exception $ex) {
+                    // Fallback
+                }
             }
         }
 

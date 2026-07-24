@@ -13,7 +13,7 @@
         <article class="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-100">
             @if($berita->gambar)
                 <div class="w-full h-[400px] overflow-hidden bg-slate-100">
-                    <img src="{{ asset('storage/' . $berita->gambar) }}" alt="{{ $berita->judul }}" class="w-full h-full object-cover">
+                    <img src="{{ $berita->gambar_url }}" alt="{{ $berita->judul }}" class="w-full h-full object-cover">
                 </div>
             @endif
 
