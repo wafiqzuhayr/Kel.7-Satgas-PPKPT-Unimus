@@ -201,7 +201,7 @@ class AdminController extends Controller
             } catch (\Throwable $e) {}
         }
 
-        return redirect()->route('admin.laporan.show', $id)->with('success', 'Status laporan berhasil diperbarui.');
+        return redirect()->route('admin.laporan.show', $id)->with('success', 'Anda telah berhasil memperbarui status tindak lanjut laporan.');
     }
 
     public function apiExcelFeed(Request $request)

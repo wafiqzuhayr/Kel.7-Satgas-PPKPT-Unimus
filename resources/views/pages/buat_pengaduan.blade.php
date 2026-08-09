@@ -78,7 +78,7 @@
                 <!-- No HP -->
                 <div>
                     <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">No. HP (WhatsApp aktif) <span class="text-red-500">*</span></label>
-                    <input type="number" name="no_hp" value="{{ old('no_hp') }}" required minlength="11" maxlength="13" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-800 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-colors" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+                    <input type="tel" name="no_hp" value="{{ old('no_hp') }}" required maxlength="13" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-800 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-colors" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 13);">
                 </div>
 
                 <!-- NIK / NIM -->

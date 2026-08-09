@@ -16,12 +16,6 @@
         </a>
     </div>
 
-    @if(session('success'))
-        <div class="mb-6 bg-emerald-50 border border-emerald-200 text-emerald-700 px-4 py-3 rounded-xl flex items-center gap-2 shadow-sm">
-            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-            <span class="text-xs font-bold">{{ session('success') }}</span>
-        </div>
-    @endif
 
     <div class="bg-white border border-slate-100 rounded-[2rem] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
         <div class="flex items-center gap-4 mb-8 pb-4 border-b border-slate-100">

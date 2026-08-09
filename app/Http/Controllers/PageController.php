@@ -116,7 +116,7 @@ class PageController extends Controller
         $user->notif_wa = $request->has('notif_wa');
         $user->save();
 
-        return back()->with('success', 'Pengaturan notifikasi berhasil disimpan!');
+        return back()->with('success', 'Anda telah berhasil menyimpan preferensi notifikasi Anda.');
     }
 
     /**
@@ -145,7 +145,7 @@ class PageController extends Controller
         $user->password = \Illuminate\Support\Facades\Hash::make($request->password);
         $user->save();
 
-        return back()->with('success', 'Kata sandi berhasil diperbarui!');
+        return back()->with('success', 'Anda telah berhasil memperbarui kata sandi akun Anda.');
     }
 
     /**
@@ -199,6 +199,6 @@ class PageController extends Controller
 
         $user->save();
 
-        return redirect()->back()->with('success', 'Data pribadi berhasil diperbarui.');
+        return redirect()->back()->with('success', 'Anda telah berhasil memperbarui data pribadi profil Anda.');
     }
 }

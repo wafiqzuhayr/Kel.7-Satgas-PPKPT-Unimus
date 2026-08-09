@@ -314,5 +314,7 @@
             }
         });
     </script>
+    <!-- Global Toast Notifications -->
+    @include('components.toast-notification')
 </body>
 </html>

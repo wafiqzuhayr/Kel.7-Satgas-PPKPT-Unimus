@@ -16,11 +16,6 @@
         </a>
     </div>
 
-    @if(session('success'))
-        <div class="bg-emerald-50 border border-emerald-100 p-4 rounded-2xl mb-6 shadow-sm text-center">
-            <p class="text-sm font-bold text-emerald-700">{{ session('success') }}</p>
-        </div>
-    @endif
 
     <form method="POST" action="{{ route('settings.update') }}" class="space-y-6">
         @csrf
@@ -135,7 +130,5 @@
                 </form>
             </div>
         </div>
-        
     </div>
-</div>
 @endsection

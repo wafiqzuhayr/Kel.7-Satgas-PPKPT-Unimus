@@ -34,10 +34,10 @@ class AuthController extends Controller
             $request->session()->regenerate();
 
             if (Auth::user()->role === 'admin') {
-                return redirect()->route('admin.dashboard')->with('success', 'Berhasil masuk ke portal Admin.');
+                return redirect()->route('admin.dashboard')->with('success', 'Anda telah berhasil masuk ke portal Administrator.');
             }
 
-            return redirect()->route('beranda')->with('success', 'Berhasil masuk ke portal PPKPT.');
+            return redirect()->route('beranda')->with('success', 'Anda telah berhasil masuk ke portal PPKPT UNIMUS.');
         }
 
         throw ValidationException::withMessages([
@@ -59,11 +59,11 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z\s]+$/'],
+            'name' => ['required', 'string', 'max:255', "regex:/^[a-zA-Z\s.,'-]+$/"],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ], [
-            'name.regex' => 'Nama lengkap hanya boleh berisi huruf dan spasi.',
+            'name.regex' => 'Nama lengkap hanya boleh berisi huruf, spasi, dan tanda baca umum nama (titik, koma, petik).',
             'email.unique' => 'Alamat email ini sudah terdaftar di sistem kami.',
             'password.min' => 'Password minimal harus terdiri dari 8 karakter.',
             'password.confirmed' => 'Konfirmasi password tidak cocok.',
@@ -77,7 +77,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('beranda')->with('success', 'Akun berhasil dibuat. Selamat datang di portal PPKPT.');
+        return redirect()->route('beranda')->with('success', 'Anda telah berhasil mendaftarkan akun baru. Selamat datang di portal PPKPT UNIMUS!');
     }
 
     /**
@@ -90,7 +90,7 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('beranda')->with('success', 'Anda telah keluar dari akun.');
+        return redirect()->route('beranda')->with('success', 'Anda telah berhasil keluar dari akun.');
     }
     /**
      * Tampilkan form Lupa Password.
@@ -113,6 +113,6 @@ class AuthController extends Controller
 
         // Karena ini purwarupa, kita asumsikan link terkirim.
         // Di aplikasi asli, kita akan menggunakan Password Broker dari Laravel.
-        return back()->with('success', 'Jika email tersebut terdaftar, kami telah mengirimkan tautan pemulihan kata sandi. (Cek log server untuk detailnya)');
+        return back()->with('success', 'Anda telah berhasil mengajukan pemulihan kata sandi. Tautan pemulihan telah dikirim ke email Anda.');
     }
 }

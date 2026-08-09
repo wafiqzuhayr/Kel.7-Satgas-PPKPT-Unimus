@@ -95,19 +95,6 @@
 
         <!-- Content Area -->
         <div class="flex-1 overflow-auto p-6 md:p-8">
-            @if(session('success'))
-                <div class="bg-emerald-50 border border-emerald-100 text-emerald-700 p-4 rounded-2xl mb-6 shadow-sm flex items-center gap-3">
-                    <svg class="h-5 w-5 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                    <span class="text-sm font-bold">{{ session('success') }}</span>
-                </div>
-            @endif
-
-            @if(session('error'))
-                <div class="bg-red-50 border border-red-100 text-red-700 p-4 rounded-2xl mb-6 shadow-sm flex items-center gap-3">
-                    <svg class="h-5 w-5 text-red-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                    <span class="text-sm font-bold">{{ session('error') }}</span>
-                </div>
-            @endif
 
             @yield('content')
         </div>
@@ -127,5 +114,7 @@
             }
         });
     </script>
+    <!-- Global Toast Notifications -->
+    @include('components.toast-notification')
 </body>
 </html>

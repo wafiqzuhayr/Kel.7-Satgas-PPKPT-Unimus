@@ -24,7 +24,12 @@
                 </div>
                 <h2 class="text-xl font-black mb-2 tracking-wide">Hotline Satgas (24 Jam)</h2>
                 <p class="text-[13px] text-blue-100 mb-6 font-medium leading-relaxed">Hubungi nomor darurat kami via panggilan suara atau WhatsApp untuk penanganan kasus krisis seketika.</p>
-                <div class="text-3xl font-black text-yellow-400 tracking-tight">+62 812-3456-7890</div>
+                <div class="flex items-center gap-3">
+                    <div class="text-2xl sm:text-3xl font-black text-yellow-400 tracking-tight">+62 812-3456-7890</div>
+                    <button type="button" data-copy="+6281234567890" data-copy-msg="Anda telah berhasil menyalin nomor Hotline Satgas (+62 812-3456-7890) ke clipboard!" class="p-2 rounded-xl bg-white/20 hover:bg-white/30 text-white transition-all active:scale-95 cursor-pointer" title="Salin Nomor Telepon">
+                        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -35,9 +40,14 @@
             </div>
             <h2 class="text-xl font-black text-[#0f295a] mb-2 tracking-wide">Jadwalkan Konseling</h2>
             <p class="text-[13px] text-slate-500 mb-6 font-medium leading-relaxed">Merasa trauma atau cemas akibat kejadian tidak menyenangkan? Kami menyediakan layanan konseling privat dengan psikolog klinis internal UNIMUS secara gratis.</p>
-            <a href="mailto:konseling.ppkpt@unimus.ac.id" class="inline-flex items-center justify-center w-full rounded-xl bg-slate-50 border border-slate-200 text-slate-700 hover:bg-slate-100 px-5 py-3 text-[13px] font-bold transition-colors">
-                konseling.ppkpt@unimus.ac.id
-            </a>
+            <div class="flex items-center gap-2">
+                <a href="mailto:konseling.ppkpt@unimus.ac.id" data-notify="Anda sedang dialihkan ke aplikasi email untuk konseling." class="inline-flex items-center justify-center flex-1 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 hover:bg-slate-100 px-4 py-3 text-[12px] font-bold transition-colors truncate">
+                    konseling.ppkpt@unimus.ac.id
+                </a>
+                <button type="button" data-copy="konseling.ppkpt@unimus.ac.id" data-copy-msg="Anda telah berhasil menyalin email konseling ke clipboard!" class="p-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 transition-all active:scale-95 cursor-pointer" title="Salin Email">
+                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+                </button>
+            </div>
         </div>
 
         <!-- QR Code Pengaduan -->

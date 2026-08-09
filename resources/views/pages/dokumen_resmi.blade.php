@@ -34,7 +34,7 @@
                         <p class="text-[11px] text-slate-500 font-medium mt-0.5">PDF • Dokumen terbaru • Diperbarui 30 Juni 2026</p>
                     </div>
                 </div>
-                <a href="{{ route('dokumen_viewer', ['file' => 'SK Pencegahan Dan Penanganan Kekerasan Di Lingkungan Unimus.pdf', 'title' => 'SK Pencegahan Dan Penanganan Kekerasan Di Lingkungan Unimus']) }}" class="shrink-0 inline-flex items-center gap-2 rounded-lg bg-white border border-slate-200 px-4 py-2 text-[11px] font-bold text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition-colors">
+                <a href="{{ route('dokumen_viewer', ['file' => 'SK Pencegahan Dan Penanganan Kekerasan Di Lingkungan Unimus.pdf', 'title' => 'SK Pencegahan Dan Penanganan Kekerasan Di Lingkungan Unimus']) }}" data-download="SK Pencegahan Dan Penanganan Kekerasan Di Lingkungan Unimus" class="shrink-0 inline-flex items-center gap-2 rounded-lg bg-white border border-slate-200 px-4 py-2 text-[11px] font-bold text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition-colors">
                     <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
                     Lihat
                 </a>
@@ -51,7 +51,7 @@
                         <p class="text-[11px] text-slate-500 font-medium mt-0.5">PDF • Dokumen resmi • Diperbarui 30 Juni 2026</p>
                     </div>
                 </div>
-                <a href="{{ route('dokumen_viewer', ['file' => 'PROSEDUR OPERASIONAL BAKU PPKPTdocx.pdf', 'title' => 'PROSEDUR OPERASIONAL BAKU PPKPTdocx']) }}" class="shrink-0 inline-flex items-center gap-2 rounded-lg bg-white border border-slate-200 px-4 py-2 text-[11px] font-bold text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition-colors">
+                <a href="{{ route('dokumen_viewer', ['file' => 'PROSEDUR OPERASIONAL BAKU PPKPTdocx.pdf', 'title' => 'PROSEDUR OPERASIONAL BAKU PPKPTdocx']) }}" data-download="PROSEDUR OPERASIONAL BAKU PPKPTdocx" class="shrink-0 inline-flex items-center gap-2 rounded-lg bg-white border border-slate-200 px-4 py-2 text-[11px] font-bold text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition-colors">
                     <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
                     Lihat
                 </a>
@@ -68,7 +68,7 @@
                         <p class="text-[11px] text-slate-500 font-medium mt-0.5">PDF • Dokumen aturan • Diperbarui Terbaru</p>
                     </div>
                 </div>
-                <a href="{{ route('dokumen_viewer', ['file' => '2025-26.467.KP Satuan Tugas Pencegahan dan Penanganan Kekerasan Dilingkungan Perguruan Tinggi (PPKPT).pdf', 'title' => 'SK Satgas PPKPT']) }}" class="shrink-0 inline-flex items-center gap-2 rounded-lg bg-white border border-slate-200 px-4 py-2 text-[11px] font-bold text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition-colors">
+                <a href="{{ route('dokumen_viewer', ['file' => '2025-26.467.KP Satuan Tugas Pencegahan dan Penanganan Kekerasan Dilingkungan Perguruan Tinggi (PPKPT).pdf', 'title' => 'SK Satgas PPKPT']) }}" data-download="SK Satuan Tugas PPKPT UNIMUS" class="shrink-0 inline-flex items-center gap-2 rounded-lg bg-white border border-slate-200 px-4 py-2 text-[11px] font-bold text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition-colors">
                     <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
                     Lihat
                 </a>
@@ -85,7 +85,7 @@
                         <p class="text-[11px] text-slate-500 font-medium mt-0.5">JPEG • Diagram alur pengaduan • Diperbarui 30 Juni 2026</p>
                     </div>
                 </div>
-                <a href="{{ route('dokumen_viewer', ['file' => 'Alur Pengaduan PPKPT.jpeg', 'title' => 'Alur Pengaduan PPKPT']) }}" class="shrink-0 inline-flex items-center gap-2 rounded-lg bg-white border border-slate-200 px-4 py-2 text-[11px] font-bold text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition-colors">
+                <a href="{{ route('dokumen_viewer', ['file' => 'Alur Pengaduan PPKPT.jpeg', 'title' => 'Alur Pengaduan PPKPT']) }}" data-download="Alur Pengaduan PPKPT" class="shrink-0 inline-flex items-center gap-2 rounded-lg bg-white border border-slate-200 px-4 py-2 text-[11px] font-bold text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition-colors">
                     <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
                     Lihat
                 </a>
@@ -102,7 +102,7 @@
                         <p class="text-[11px] text-slate-500 font-medium mt-0.5">JPEG • Kontak penting Satgas PPKPT • Diperbarui 30 Juni 2026</p>
                     </div>
                 </div>
-                <a href="{{ route('dokumen_viewer', ['file' => 'Informasi Kontak PPKPT.jpeg', 'title' => 'Informasi Kontak PPKPT']) }}" class="shrink-0 inline-flex items-center gap-2 rounded-lg bg-white border border-slate-200 px-4 py-2 text-[11px] font-bold text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition-colors">
+                <a href="{{ route('dokumen_viewer', ['file' => 'Informasi Kontak PPKPT.jpeg', 'title' => 'Informasi Kontak PPKPT']) }}" data-download="Informasi Kontak PPKPT" class="shrink-0 inline-flex items-center gap-2 rounded-lg bg-white border border-slate-200 px-4 py-2 text-[11px] font-bold text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition-colors">
                     <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
                     Lihat
                 </a>
